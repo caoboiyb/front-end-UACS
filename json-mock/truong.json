@@ -1,0 +1,16 @@
+{
+    "truong": [
+        {
+            "msTruong": 1,
+            "tenTruong": "THPT Chuyen Nguyen Tat Thanh"
+        },
+        {
+            "msTruong": 2,
+            "tenTruong": "THPT Nguyen Hue"
+        },
+        {
+            "msTruong": 3,
+            "tenTruong": "THPT"
+        }
+    ]
+}

@@ -1,0 +1,16 @@
+{
+    "quanHuyen": [
+        {
+            "msHuyen": 1,
+            "tenHuyen": "TP Yên Bái"
+        },
+        {
+            "msHuyen": 2,
+            "tenHuyen": "Van Yen"
+        },
+        {
+            "msHuyen": 3,
+            "tenHuyen": "Van Chan"
+        }
+    ]
+}

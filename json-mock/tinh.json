@@ -1,0 +1,12 @@
+{
+    "tinh": [
+        {
+            "msTinh": 21,
+            "tenTinh": "Yên Bái"
+        },
+        {
+            "msTinh": 1,
+            "tenTinh": "Hà Nội"
+        }
+    ]
+}
