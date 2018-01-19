@@ -23,11 +23,35 @@ const _getSchool = (response) => {
 }
 
 const _getNangKhieu = (response) => {
-    var htmlResult = `<option>unselected</option>`;
+    var htmlResult = `<select name="nangkhieu[]">`;
     for (let i = 0; i < response.nangkhieu.length; i++){
         htmlResult += `<option value=${response.nangkhieu[i].msMH}>${response.nangkhieu[i].tenMH}</option>`
     }
-    $(".nangkhieu").html(htmlResult)
+    htmlResult += `</select>
+                   <input type="text" name="diemNK[]">
+                   <br>`
+    $(htmlResult).appendTo(".nangkhieu")
+}
+
+const _showResult = response => {
+    var htmlResult = `<table id="result" class="display" cellspacing="0" width="100%">
+                         <thead>
+                                <tr>
+                                    <th>Khối xét tuyển</th>
+                                    <th>Điểm</th>
+                                 </tr>
+                         </thead>
+                         <tbody>`
+    for (let i = 0; i < response.result.length; i++){
+        htmlResult += `<tr>
+                            <td>${response.result[i].khoi}</td>
+                            <td>${response.result[i].diemXetTuyen}</td>
+                       </tr>`
+    }
+    htmlResult += `</tbody></table>`
+
+    $(".modal-content").html(htmlResult)
+    $("#result").DataTable();
 }
 
 $(document).ready(
@@ -36,14 +60,6 @@ $(document).ready(
         type: "GET",
         success: (response) => {
             _getTinh(response)
-        }
-    }),
-    $.ajax({
-        url: "../json-mock/nang-khieu.json",
-        type: "GET",
-        dataType: "JSON",
-        success: response => {
-            _getNangKhieu(response)
         }
     })
 )
@@ -80,14 +96,30 @@ $("#quan-huyen").on("change", () => {
     });
 })
 
-$('#target').ajaxForm({
-    url: 'http://localhost:3000/auth/login',
-    // dataType identifies the expected content type of the server response
-    dataType: 'json',
-    method: 'POST',
-    // success identifies the function to invoke when the server response
-    // has been received
+$("#themNK").on("click", () => {
+    $.ajax({
+    url: "../json-mock/nang-khieu.json",
+    type: "GET",
+    dataType: "JSON",
     success: response => {
-        console.log("Submit")
-    }
-  });
+            _getNangKhieu(response)
+        }
+    })
+})
+
+$('#formTinhDiem').ajaxForm({
+        url: "../json-mock/result.json",
+        type: "POST",
+        beforeSubmit: showRequest,
+        success: response => {
+            _showResult(response)
+        }
+    })
+
+function showRequest(formData, jqForm, options) {
+    var queryString = $.param(formData);
+
+    alert(queryString);
+
+    return true;
+}

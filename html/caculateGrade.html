@@ -9,7 +9,7 @@
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.3/css/bootstrap.min.css" integrity="sha384-Zug+QiDoJOrZ5t4lssLdxGhVrurbmBWopoEl+M6BdEfwnCJZtKxi1KgxUyJq13dy"
         crossorigin="anonymous">
-
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css">
     <title>UAC</title>
 </head>
 
@@ -44,23 +44,24 @@
             <option value="5">Tiếng Đức</option>
             <option value="6">Tiếng Nhật</option>
         </select>
-        <input type="text" name="ngoaingu" id="diemngoaingu">
-        <p>Năng khiếu 1: </p>
-        <select name="nangkhieu" id="nangkhieu1" class="nangkhieu"></select>
-        <input type="text" name="nangkhieu" id="diemnangkhieu1">
-        <p>Năng khiếu 2: </p>
-        <select name="nangkhieu" id="nangkhieu2" class="nangkhieu"></select>
-        <input type="text" name="nangkhieu" id="diemnangkhieu1">
+        <input type="text" name="diemngoaingu" id="diemngoaingu">
+        <p>Năng khiếu: </p>
+        <button type="button" id="themNK">Thêm môn năng khiếu</button>
+        <div class="nangkhieu">
+
+        </div>
+        <p>Đối tượng ưu tiên</p>
+        <input type="radio" name="uutien" value="1"> UT1
+        <input type="radio" name="uutien" value="2"> UT2
         <br>
         <br>
-        <button type="submit" class="btn" data-toggle="modal" data-target=".bd-example-modal-lg" id="submit">Submit</button>
+        <button type="submit" class="btn" id="submit" data-toggle="modal" data-target=".bd-example-modal-lg">Submit</button>
         <!-- Large modal -->
-        <button type="button" class="btn btn-primary" data-toggle="modal" data-target=".bd-example-modal-lg">Large modal</button>
 
         <div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
             <div class="modal-dialog modal-lg">
                 <div class="modal-content">
-                    ...
+
                 </div>
             </div>
         </div>
@@ -73,6 +74,7 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.3/js/bootstrap.min.js" integrity="sha384-a5N7Y/aK3qNeh15eJKGWxsqtnX/wWdSZSKp+81YjTmS15nvnvxKHuzaWwXHDli+4"
         crossorigin="anonymous"></script>
     <script src="http://malsup.github.com/jquery.form.js"></script>
+    <script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
     <script src="../js/app.js"></script>
 </body>
 
