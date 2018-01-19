@@ -1,0 +1,16 @@
+{ 
+    "nangkhieu": [
+        {
+            "msMH": 1,
+            "tenMH": "Ảnh báo chí" 
+        },
+        {
+            "msMH": 2,
+            "tenMH": "Quay phim truyền hình"
+        },
+        {
+            "msMH": 3,
+            "tenMH": "Thuyết trình"
+        }
+    ]
+}
