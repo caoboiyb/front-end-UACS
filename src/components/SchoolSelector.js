@@ -8,16 +8,16 @@ class SchoolSelector extends Component {
         tinh: [],
         huyen: [],
         truong: [],
-        selectedTinh: 0,
-        selectedHuyen: 0,
-        selectedTruong: 0
+        selectedTinh: undefined,
+        selectedHuyen: undefined,
+        selectedTruong: undefined
     }
 
     _handleTinhChange = (value) => {
         this.setState({
             selectedTinh: value,
-            selectedHuyen: 0,
-            selectedTruong: 0
+            selectedHuyen: undefined,
+            selectedTruong: undefined
         }, () => {
             axios.post('http://42.114.107.57:8080/get-huyen', {
                 msTinh: this.state.selectedTinh
@@ -36,7 +36,7 @@ class SchoolSelector extends Component {
     _handleHuyenChange = value => {
         this.setState({
             selectedHuyen: value,
-            selectedTruong: 0
+            selectedTruong: undefined
         }, () => {
             axios.post('http://42.114.107.57:8080/get-truong', {
                 msTinh: this.state.selectedTinh,
@@ -50,6 +50,12 @@ class SchoolSelector extends Component {
                 .catch(function (error) {
                     console.log(error);
                 });
+        })
+    }
+
+    _handleTruongChange = value => {
+        this.setState({
+            selectedTruong: value
         })
     }
 
@@ -99,6 +105,7 @@ class SchoolSelector extends Component {
                             optionFilterProp="children"
                             filterOption={(input, option) => option.props.children.toLowerCase().indexOf(input.toLowerCase()) >= 0}
                             onChange={this._handleTinhChange}
+                            value={this.state.selectedTinh}
                         >
                             {optionTinh}
                         </Select>
@@ -116,6 +123,7 @@ class SchoolSelector extends Component {
                             optionFilterProp="children"
                             filterOption={(input, option) => option.props.children.toLowerCase().indexOf(input.toLowerCase()) >= 0}
                             onChange={this._handleHuyenChange}
+                            value={this.state.selectedHuyen}
                         >
                             {optionHuyen}
                         </Select>
@@ -131,10 +139,9 @@ class SchoolSelector extends Component {
                             showSearch
                             placeholder="Chọn Trường"
                             optionFilterProp="children"
-                            onChange={this.handleChange}
-                            onFocus={this.handleFocus}
-                            onBlur={this.handleBlur}
                             filterOption={(input, option) => option.props.children.toLowerCase().indexOf(input.toLowerCase()) >= 0}
+                            onChange={this._handleTruongChange}
+                            value={this.state.selectedTruong}
                         >
                             {optionTruong}
                         </Select>
