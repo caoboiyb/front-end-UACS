@@ -6,7 +6,7 @@ const Option = Select.Option
 class SchoolSelector extends Component {
     state = {
         tinh: [],
-        huyenh: [],
+        huyen: [],
         truong: [],
         selectedTinh: 0,
         selectedHuyen: 0,
@@ -15,13 +15,17 @@ class SchoolSelector extends Component {
 
     _handleTinhChange = (value) => {
         this.setState({
-            selectedTinh: value
+            selectedTinh: value,
+            selectedHuyen: 0,
+            selectedTruong: 0
         }, () => {
             axios.post('http://42.114.107.57:8080/get-huyen', {
                 msTinh: this.state.selectedTinh
             })
-                .then(function (response) {
-                    console.log(response);
+                .then(response => {
+                    this.setState({
+                        huyen: response.data.quanHuyen
+                    })
                 })
                 .catch(function (error) {
                     console.log(error);
@@ -29,16 +33,24 @@ class SchoolSelector extends Component {
         })
     }
 
-    handleChange = value => {
-        console.log(`selected ${value}`);
-    }
-
-    handleBlur = () => {
-        console.log('blur');
-    }
-
-    handleFocus = () => {
-        console.log('focus');
+    _handleHuyenChange = value => {
+        this.setState({
+            selectedHuyen: value,
+            selectedTruong: 0
+        }, () => {
+            axios.post('http://42.114.107.57:8080/get-truong', {
+                msTinh: this.state.selectedTinh,
+                msHuyen: this.state.selectedHuyen
+            })
+                .then(response => {
+                    this.setState({
+                        truong: response.data.truong
+                    })
+                })
+                .catch(function (error) {
+                    console.log(error);
+                });
+        })
     }
 
     componentDidMount() {
@@ -60,6 +72,18 @@ class SchoolSelector extends Component {
                 <Option key={tinh.msTinh} value={tinh.msTinh}>{tinh.tenTinh}</Option>
             )
         })
+
+        const optionHuyen = this.state.huyen.map((huyen, index) => {
+            return (
+                <Option key={huyen.msHuyen} value={huyen.msHuyen}>{huyen.tenHuyen}</Option>
+            )
+        })
+
+        const optionTruong = this.state.truong.map((truong, index) => {
+            return (
+                <Option key={truong.msTruong} value={truong.msTruong}>{truong.tenTruong}</Option>
+            )
+        });
 
         return (
             <div>
@@ -90,14 +114,10 @@ class SchoolSelector extends Component {
                             showSearch
                             placeholder="Chọn Quận/Huyện"
                             optionFilterProp="children"
-                            onChange={this.handleChange}
-                            onFocus={this.handleFocus}
-                            onBlur={this.handleBlur}
                             filterOption={(input, option) => option.props.children.toLowerCase().indexOf(input.toLowerCase()) >= 0}
+                            onChange={this._handleHuyenChange}
                         >
-                            <Option value="jack">Jack</Option>
-                            <Option value="lucy">Lucy</Option>
-                            <Option value="tom">Tom</Option>
+                            {optionHuyen}
                         </Select>
                     </Col>
                 </Row>
@@ -116,9 +136,7 @@ class SchoolSelector extends Component {
                             onBlur={this.handleBlur}
                             filterOption={(input, option) => option.props.children.toLowerCase().indexOf(input.toLowerCase()) >= 0}
                         >
-                            <Option value="jack">Jack</Option>
-                            <Option value="lucy">Lucy</Option>
-                            <Option value="tom">Tom</Option>
+                            {optionTruong}
                         </Select>
                     </Col>
                 </Row>
